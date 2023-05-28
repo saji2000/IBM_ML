@@ -41,10 +41,10 @@ train = cdf[msk]
 test = cdf[~msk]
 
 
-plt.scatter(train.ENGINESIZE, train.CO2EMISSIONS,  color='blue')
-plt.xlabel("Engine size")
-plt.ylabel("Emission")
-plt.show()
+# plt.scatter(train.ENGINESIZE, train.CO2EMISSIONS,  color='blue')
+# plt.xlabel("Engine size")
+# plt.ylabel("Emission")
+# plt.show()
 
 regr = linear_model.LinearRegression()
 train_x = np.asanyarray(train[['ENGINESIZE']])
@@ -68,3 +68,18 @@ test_y_ = regr.predict(test_x)
 print("Mean absolute error: %.2f" % np.mean(np.absolute(test_y_ - test_y)))
 print("Residual sum of squares (MSE): %.2f" % np.mean((test_y_ - test_y) ** 2))
 print("R2-score: %.2f" % r2_score(test_y , test_y_) )
+
+
+train_x = np.asanyarray(train[["FUELCONSUMPTION_COMB"]])
+test_x = np.asanyarray(test[["FUELCONSUMPTION_COMB"]])
+
+regr = linear_model.LinearRegression()
+regr.fit(train_x, train_y)
+
+# The coefficients
+print('Coefficients:', regr.coef_)
+print('Intercept:', regr.intercept_)
+
+test_y_ = regr.predict(test_x)
+
+print("Mean absolute error: %.2f" % np.mean(np.absolute(test_y_ - test_y)))
