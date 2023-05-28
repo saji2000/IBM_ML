@@ -1,0 +1,26 @@
+# Ignore myenv folder
+myenv/
+
+# Ignore Python virtual environment files
+*.pyc
+*.pyo
+__pycache__/
+
+# Ignore editor-specific files
+.idea/
+.vscode/
+
+# Ignore compiled files
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Ignore log files
+*.log
+
+# Ignore macOS-specific files
+.DS_Store
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
