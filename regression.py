@@ -14,7 +14,7 @@ df.head()
 # summarize the data
 df.describe()
 
-cdf = df[['ENGINESIZE','CYLINDERS','FUELCONSUMPTION_COMB','CO2EMISSIONS']]
+cdf = df[['ENGINESIZE','CYLINDERS','FUELCONSUMPTION_CITY', 'FUELCONSUMPTION_HWY','CO2EMISSIONS']]
 cdf.head(9)
 
 # viz = cdf[['CYLINDERS','ENGINESIZE','CO2EMISSIONS','FUELCONSUMPTION_COMB']]
@@ -31,18 +31,31 @@ train = cdf[msk]
 test = cdf[~msk]
 
 regr = linear_model.LinearRegression()
-x = np.asanyarray(train[['ENGINESIZE','CYLINDERS','FUELCONSUMPTION_COMB']])
-y = np.asanyarray(train[['CO2EMISSIONS']])
-regr.fit (x, y)
-# The coefficients
-print ('Coefficients: ', regr.coef_)
+# x = np.asanyarray(train[['ENGINESIZE','CYLINDERS','FUELCONSUMPTION_COMB']])
+# y = np.asanyarray(train[['CO2EMISSIONS']])
+# regr.fit (x, y)
+# # The coefficients
+# print ('Coefficients: ', regr.coef_)
 
-y_hat = regr.predict(test[['ENGINESIZE','CYLINDERS', 'FUELCONSUMPTION_COMB']])
-x = np.asanyarray(test[['ENGINESIZE','CYLINDERS', 'FUELCONSUMPTION_COMB']])
-y = np.asanyarray(test[['CO2EMISSIONS']])
-
+# y_hat = regr.predict(test[['ENGINESIZE','CYLINDERS', 'FUELCONSUMPTION_COMB']])
+# x = np.asanyarray(test[['ENGINESIZE','CYLINDERS', 'FUELCONSUMPTION_COMB']])
+# y = np.asanyarray(test[['CO2EMISSIONS']])
+# y
+# # print("Residual sum of squares %.2f" % np.mean((y_hat - y) ** 2))
 # print("Residual sum of squares %.2f" % np.mean((y_hat - y) ** 2))
-print("Residual sum of squares %.2f" % np.mean((y_hat - y) ** 2))
-
 
 # print('Variance: %.2f' % regr.score(x, y))
+
+x = np.asanyarray(train[['ENGINESIZE', 'CYLINDERS', 'FUELCONSUMPTION_CITY', 'FUELCONSUMPTION_HWY']])
+y = np.asanyarray(train[['CO2EMISSIONS']])
+regr.fit(x, y)
+
+print('Coefficients: ', regr.coef_)
+
+y_hat = regr.predict(test[['ENGINESIZE', 'CYLINDERS', 'FUELCONSUMPTION_CITY', 'FUELCONSUMPTION_HWY']])
+x = np.asanyarray(test[['ENGINESIZE', 'CYLINDERS', 'FUELCONSUMPTION_CITY', 'FUELCONSUMPTION_HWY']])
+y = np.asanyarray(test[['CO2EMISSIONS']])
+
+print('MSE: ', np.mean((y_hat - y) ** 2))
+
+print('Variance: ', regr.score(x, y))
