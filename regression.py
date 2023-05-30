@@ -21,10 +21,10 @@ cdf.head(9)
 # viz.hist()
 # plt.show()
 
-plt.scatter(cdf.FUELCONSUMPTION_COMB, cdf.CO2EMISSIONS,  color='blue')
-plt.xlabel("FUELCONSUMPTION_COMB")
-plt.ylabel("Emission")
-plt.show()
+# plt.scatter(cdf.ENGINESIZE, cdf.CO2EMISSIONS,  color='blue')
+# plt.xlabel("Engine size")
+# plt.ylabel("Emission")
+# plt.show()
 
 msk = np.random.rand(len(df)) < 0.8
 train = cdf[msk]
@@ -36,3 +36,13 @@ y = np.asanyarray(train[['CO2EMISSIONS']])
 regr.fit (x, y)
 # The coefficients
 print ('Coefficients: ', regr.coef_)
+
+y_hat = regr.predict(test[['ENGINESIZE','CYLINDERS', 'FUELCONSUMPTION_COMB']])
+x = np.asanyarray(test[['ENGINESIZE','CYLINDERS', 'FUELCONSUMPTION_COMB']])
+y = np.asanyarray(test[['CO2EMISSIONS']])
+
+# print("Residual sum of squares %.2f" % np.mean((y_hat - y) ** 2))
+print("Residual sum of squares %.2f" % np.mean((y_hat - y) ** 2))
+
+
+# print('Variance: %.2f' % regr.score(x, y))
