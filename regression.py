@@ -91,4 +91,9 @@ plt.ylabel("CO2EMISSIONS")
 
 plt.show()
 
+test_x_poly = poly.transform(test_x)
+test_y_ = regr.predict(test_x_poly)
 
+print("Mean absloute error: %.2f" % np.mean(np.abs(test_y_ - test_y)))
+print("Residual Sum of Squares : %.2f" % np.mean((test_y_ - test_y) ** 2))
+print("R2 score: %.2f" %  r2_score(test_y, test_y_))
