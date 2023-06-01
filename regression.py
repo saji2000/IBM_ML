@@ -4,6 +4,7 @@ import pylab as pl
 import numpy as np
 from sklearn import linear_model
 from sklearn.metrics import r2_score
+from sklearn.preprocessing import PolynomialFeatures
 
 
 df = pd.read_csv("FuelConsumption.csv")
@@ -31,31 +32,14 @@ train = cdf[msk]
 test = cdf[~msk]
 
 regr = linear_model.LinearRegression()
-# x = np.asanyarray(train[['ENGINESIZE','CYLINDERS','FUELCONSUMPTION_COMB']])
-# y = np.asanyarray(train[['CO2EMISSIONS']])
-# regr.fit (x, y)
-# # The coefficients
-# print ('Coefficients: ', regr.coef_)
 
-# y_hat = regr.predict(test[['ENGINESIZE','CYLINDERS', 'FUELCONSUMPTION_COMB']])
-# x = np.asanyarray(test[['ENGINESIZE','CYLINDERS', 'FUELCONSUMPTION_COMB']])
-# y = np.asanyarray(test[['CO2EMISSIONS']])
-# y
-# # print("Residual sum of squares %.2f" % np.mean((y_hat - y) ** 2))
-# print("Residual sum of squares %.2f" % np.mean((y_hat - y) ** 2))
+train_x = np.asanyarray(train[['ENGINESIZE']])
+train_y = np.asanyarray(train[['CO2EMISSIONS']])
 
-# print('Variance: %.2f' % regr.score(x, y))
+test_x = np.asanyarray(test[['ENGINESIZE']])
+test_y = np.asanyarray(test[['CO2EMISSIONS']])
 
-x = np.asanyarray(train[['ENGINESIZE', 'CYLINDERS', 'FUELCONSUMPTION_CITY', 'FUELCONSUMPTION_HWY']])
-y = np.asanyarray(train[['CO2EMISSIONS']])
-regr.fit(x, y)
 
-print('Coefficients: ', regr.coef_)
-
-y_hat = regr.predict(test[['ENGINESIZE', 'CYLINDERS', 'FUELCONSUMPTION_CITY', 'FUELCONSUMPTION_HWY']])
-x = np.asanyarray(test[['ENGINESIZE', 'CYLINDERS', 'FUELCONSUMPTION_CITY', 'FUELCONSUMPTION_HWY']])
-y = np.asanyarray(test[['CO2EMISSIONS']])
-
-print('MSE: ', np.mean((y_hat - y) ** 2))
-
-print('Variance: ', regr.score(x, y))
+poly = PolynomialFeatures(degree=2)
+train_x_poly = poly.fit_transform(train_x)
+print(train_x_poly)
