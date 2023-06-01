@@ -1,5 +1,5 @@
 # Ignore myenv folder
-myenv/
+myenv
 
 # Ignore Python virtual environment files
 *.pyc
