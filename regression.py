@@ -43,3 +43,21 @@ test_y = np.asanyarray(test[['CO2EMISSIONS']])
 poly = PolynomialFeatures(degree=2)
 train_x_poly = poly.fit_transform(train_x)
 print(train_x_poly)
+
+train_y_ = regr.fit(train_x_poly, train_y)
+
+print(regr.coef_)
+print(regr.intercept_)
+
+plt.scatter(train.ENGINESIZE, train.CO2EMISSIONS,  color='blue')
+
+XX = np.arange(0.0, 10.0, 0.1)
+
+yy = regr.intercept_[0] + regr.coef_[0][1] *  XX + regr.coef_[0][2] * (XX ** 2)
+
+plt.plot(XX, yy, '-r')
+
+plt.xlabel("ENGINESIZE")
+plt.ylabel("CO2EMISSIONS")
+
+plt.show()
