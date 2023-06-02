@@ -1,19 +1,19 @@
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 
-x = np.arange(0.1, 10.0, 0.1)
 
-y = 1 + 4/(1 + np.power(x, 2 - 0.5))
+df = pd.read_csv("china_gdp.csv")
+df.head(10)
 
-y_noise = 1/4 * np.random.normal(size=x.size)
+plt.figure(figsize=(8, 5))
 
-y_data = y + y_noise
+x_data, y_data = (df['Year'].values, df['Value'].values)
 
-plt.scatter(x, y_data, color='blue')
-plt.plot(x, y, color='red')
-
-plt.xlabel("Independet Variables")
-plt.ylabel("Dependet Variables")
-
+plt.scatter(x_data, y_data, color='blue')
+plt.xlabel('Year')
+plt.ylabel('Value')
 plt.show()
+
+
 
