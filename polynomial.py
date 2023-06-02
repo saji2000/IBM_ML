@@ -1,11 +1,11 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-x = np.arange(-5.0, 5.0, 0.1)
+x = np.arange(0.1, 10.0, 0.1)
 
-y = 2 + 1.5 * (3 ** x)
+y = np.log(x)
 
-y_noise = 5 * np.random.normal(size=x.size)
+y_noise = 1/2 * np.random.normal(size=x.size)
 
 y_data = y + y_noise
 
