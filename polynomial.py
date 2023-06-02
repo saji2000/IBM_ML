@@ -14,9 +14,12 @@ df.head(10)
 # plt.xlabel('Year')
 # plt.ylabel('Value')
 # plt.show()
+def sigmoid(x, Beta_1, Beta_2):
+     y = 1 / (1 + np.exp(-Beta_1*(x-Beta_2)))
+     return y
 
 X = np.arange(-5.0, 5.0, 0.1)
-Y = 1.0 / (1.0 + np.exp(-X))
+Y = sigmoid(X, 0.1, 10)
 
 plt.plot(X,Y) 
 plt.ylabel('Dependent Variable')
