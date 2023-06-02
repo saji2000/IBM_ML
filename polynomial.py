@@ -18,10 +18,19 @@ def sigmoid(x, Beta_1, Beta_2):
      y = 1 / (1 + np.exp(-Beta_1*(x-Beta_2)))
      return y
 
-X = np.arange(-5.0, 5.0, 0.1)
-Y = sigmoid(X, 0.1, 10)
+x_data = np.arange(-5.0, 5.0, 0.1)
 
-plt.plot(X,Y) 
+beta_1 = 0.10
+beta_2 = 1990.0
+
+#logistic function
+Y_pred = sigmoid(x_data, beta_1 , beta_2)
+
+#plot initial prediction against datapoints
+plt.plot(x_data, Y_pred*15000000000000.)
+# plt.plot(x_data, y_data, 'ro')
+
+# plt.plot(x_data,Y_pred) 
 plt.ylabel('Dependent Variable')
 plt.xlabel('Independent Variable')
 plt.show()
