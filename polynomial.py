@@ -3,9 +3,9 @@ import matplotlib.pyplot as plt
 
 x = np.arange(-5.0, 5.0, 0.1)
 
-y = x**2
+y = 2 + 1.5 * (3 ** x)
 
-y_noise = 2 * np.random.normal(size=x.size)
+y_noise = 5 * np.random.normal(size=x.size)
 
 y_data = y + y_noise
 
