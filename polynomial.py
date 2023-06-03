@@ -54,7 +54,7 @@ print(" beta_1 = %f, beta_2 = %f" % (popt[0], popt[1]))
 x = np.linspace(1960, 2015, 55)
 x = x/max(x)
 plt.figure(figsize=(8,5))
-
+print(*popt)
 y = sigmoid(x, *popt)
 
 plt.scatter(xdata, ydata ,color='red', label='data')
@@ -64,4 +64,4 @@ plt.xlabel('Year')
 plt.xlabel('GDP')
 # plt.xlim(min(xdata), max(xdata))
 
-plt.show()
+# plt.show()
