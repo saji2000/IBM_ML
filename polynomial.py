@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
+from sklearn.metrics import r2_score
+
 
 df = pd.read_csv("china_gdp.csv")
 df.head(10)
@@ -9,6 +11,9 @@ df.head(10)
 plt.figure(figsize=(8, 5))
 
 x_data, y_data = (df['Year'].values, df['Value'].values)
+
+msk = np.random.rand(len(df)) < 0.8
+msk
 
 plt.scatter(x_data, y_data, color='blue')
 plt.xlabel('Year')
@@ -63,4 +68,20 @@ plt.xlabel('Year')
 plt.xlabel('GDP')
 # plt.xlim(min(xdata), max(xdata))
 
-plt.show()
+# plt.show()
+
+msk = np.random.rand(len(df)) < 0.8
+
+train_x = xdata[msk]
+train_y = ydata[msk]
+test_x = xdata[~msk]
+test_y = ydata[~msk]
+
+popt, pcov = curve_fit(sigmoid, train_x, train_y)
+
+y_hat = sigmoid(test_x, *popt)
+
+print("Mean absolute error: %.2f" % np.mean(np.abs(y_hat - test_y)))
+print("Residual sum of squares (MSE): %.2f" % np.mean((y_hat - test_y) ** 2))
+print("R2-score: %.2f" % r2_score(test_y,y_hat) )
+
