@@ -5,6 +5,9 @@ import numpy as np
 from sklearn import preprocessing
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn import metrics
+
+
 
 df = pd.read_csv('teleCust1000t.csv')
 
@@ -21,4 +24,15 @@ scaler = preprocessing.StandardScaler().fit(x_train)
 x_train_norm = scaler.transform(x_train.astype(float))
 x_train_norm[0:5]
 
-print(x_train_norm)
+x_test_norm = scaler.transform(x_test.astype(float))
+x_test_norm[0:5]
+
+k = 4
+
+neigh = KNeighborsClassifier(n_neighbors = k).fit(x_train_norm, y_train)
+
+y_hat = neigh.predict(x_test_norm)
+
+print("Train Accuracy: ", metrics.accuracy_score(y_train, neigh.predict(x_train_norm)))
+print("Test Accuracy: ", metrics.accuracy_score(y_test, neigh.predict(x_test_norm)))
+
