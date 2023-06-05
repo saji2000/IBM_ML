@@ -31,8 +31,14 @@ k = 4
 
 neigh = KNeighborsClassifier(n_neighbors = k).fit(x_train_norm, y_train)
 
-y_hat = neigh.predict(x_test_norm)
+print("Train Accuracy: ", metrics.accuracy_score(y_train, neigh.predict(x_train_norm)))
+print("Test Accuracy: ", metrics.accuracy_score(y_test, neigh.predict(x_test_norm)))
+
+k = 6
+
+neigh = KNeighborsClassifier(n_neighbors = k).fit(x_train_norm, y_train)
 
 print("Train Accuracy: ", metrics.accuracy_score(y_train, neigh.predict(x_train_norm)))
 print("Test Accuracy: ", metrics.accuracy_score(y_test, neigh.predict(x_test_norm)))
+
 
