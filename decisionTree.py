@@ -46,3 +46,6 @@ print(predTree[0:5])
 print(y_test[0:5])
 
 print("Decision Tree's Accuracy: ", metrics.accuracy_score(y_test, predTree))
+
+tree.plot_tree(drugTree)
+plt.show()
