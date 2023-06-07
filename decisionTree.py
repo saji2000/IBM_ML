@@ -3,13 +3,19 @@ import pandas as pd
 from sklearn.tree import DecisionTreeClassifier
 import sklearn.tree as tree
 from sklearn import preprocessing
-
+from sklearn.model_selection import train_test_split
+from sklearn import metrics
+import matplotlib.pyplot as plt
 
 
 drugs = pd.read_csv('drug200.csv')
 
 x = drugs[['Age', 'Sex', 'BP', 'Cholesterol', 'Na_to_K']].values
 
+y = drugs['Drug']
+
+
+# converting categorical type of data into int because sklearn does not support them
 le_sex = preprocessing.LabelEncoder()
 le_sex.fit(['F', 'M'])
 x[:,1] = le_sex.transform(x[:,1])
@@ -22,4 +28,19 @@ le_Ch = preprocessing.LabelEncoder()
 le_Ch.fit(['HIGH', 'LOW', 'NORMAL'])
 x[:,3] = le_Ch.transform(x[:,3])
 
-print(x)
+# train/test split
+
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=3)
+
+# decision tree
+
+drugTree = DecisionTreeClassifier(criterion='entropy', max_depth=4)
+
+drugTree.fit(x_train, y_train)
+
+# testing
+
+predTree = drugTree.predict(x_test)
+
+print(predTree[0:5])
+print(y_test[0:5])
