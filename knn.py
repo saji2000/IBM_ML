@@ -15,7 +15,7 @@ x = df[['region', 'tenure','age', 'marital', 'address', 'income', 'ed', 'employ'
 x[0:5]
 
 y = df['custcat'].values
-y[0:5]
+print(y[0:5])
 
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=4)
 
@@ -29,10 +29,13 @@ x_test_norm[0:5]
 
 k = 4
 
-# neigh = KNeighborsClassifier(n_neighbors = k).fit(x_train_norm, y_train)
+neigh = KNeighborsClassifier(n_neighbors = k).fit(x_train_norm, y_train)
 
-# print("Train Accuracy: ", metrics.accuracy_score(y_train, neigh.predict(x_train_norm)))
-# print("Test Accuracy: ", metrics.accuracy_score(y_test, neigh.predict(x_test_norm)))
+print(y_test[0:10])
+print(neigh.predict(x_test_norm[0:10]))
+
+print("Train Accuracy: ", metrics.accuracy_score(y_train, neigh.predict(x_train_norm)))
+print("Test Accuracy: ", metrics.accuracy_score(y_test, neigh.predict(x_test_norm)))
 
 # k = 6
 

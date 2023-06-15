@@ -1,11 +1,12 @@
 import numpy as np 
 import pandas as pd
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.tree import DecisionTreeClassifier, export_graphviz
 import sklearn.tree as tree
 from sklearn import preprocessing
 from sklearn.model_selection import train_test_split
 from sklearn import metrics
 import matplotlib.pyplot as plt
+import graphviz
 
 
 drugs = pd.read_csv('drug200.csv')
@@ -47,5 +48,13 @@ print(y_test[0:5])
 
 print("Decision Tree's Accuracy: ", metrics.accuracy_score(y_test, predTree))
 
+# Visualize decision tree
+
 tree.plot_tree(drugTree)
 plt.show()
+
+# dot_data = export_graphviz(drugTree, feature_names=['Age', 'Sex', 'BP', 'Cholesterol', 'Na_to_K'],
+#                            class_names=drugTree.classes_, filled=True, rounded=True)
+# graph = graphviz.Source(dot_data)
+# graph.render('drug_tree', format='png', cleanup=True)
+# graph.view()
