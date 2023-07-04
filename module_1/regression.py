@@ -1,72 +1,40 @@
 import numpy as np
 import matplotlib.pyplot as plt
-# plt.style.use('./deeplearning.mplstyle')
+from utils import *
+import copy
+import math
 
-# x_train is the input variable (size in 1000 square feet)
-# y_train is the target (price in 1000s of dollars)
-x_train = np.array([1.0, 2.0])
-y_train = np.array([300.0, 500.0])
-print(f"x_train = {x_train}")
-print(f"y_train = {y_train}")
+# UNQ_C1
+# GRADED FUNCTION: compute_cost
 
-# m is the number of training examples
-print(f"x_train.shape: {x_train.shape}")
-m = x_train.shape[0]
-print(f"Number of training examples is: {m}")
-
-# m is the number of training examples
-m = len(x_train)
-print(f"Number of training examples is: {m}")
-
-# Plot the data points
-plt.scatter(x_train, y_train, marker='x', c='r')
-# Set the title
-plt.title("Housing Prices")
-# Set the y-axis label
-plt.ylabel('Price (in 1000s of dollars)')
-# Set the x-axis label
-plt.xlabel('Size (1000 sqft)')
-plt.show()
-
-def compute_model_output(x, w, b):
+def compute_cost(x, y, w, b): 
     """
-    Computes the prediction of a linear model
+    Computes the cost function for linear regression.
+    
     Args:
-      x (ndarray (m,)): Data, m examples 
-      w,b (scalar)    : model parameters  
+        x (ndarray): Shape (m,) Input to the model (Population of cities) 
+        y (ndarray): Shape (m,) Label (Actual profits for the cities)
+        w, b (scalar): Parameters of the model
+    
     Returns
-      y (ndarray (m,)): target values
+        total_cost (float): The cost of using w,b as the parameters for linear regression
+               to fit the data points in x and y
     """
-    m = x.shape[0]
-    f_wb = np.zeros(m)
-    for i in range(m):
-        f_wb[i] = w * x[i] + b
+    # number of training examples
+    m = x.shape[0] 
+    
+    # You need to return this variable correctly
+    total_cost = 0
+    
+    ### START CODE HERE ###
+    f_x = np.dot(w, x) + b
+    
+    for i in range(0, m):
         
-    return f_wb
+        total_cost += (f_x[i] - y[i])**2
+    
+    total_cost = total_cost/(2*m)
+    
+    ### END CODE HERE ### 
 
-w = 100
-b = 100
-
-tmp_f_wb = compute_model_output(x_train, w, b,)
-
-# Plot our model prediction
-plt.plot(x_train, tmp_f_wb, c='b',label='Our Prediction')
-
-# Plot the data points
-plt.scatter(x_train, y_train, marker='x', c='r',label='Actual Values')
-
-# Set the title
-plt.title("Housing Prices")
-# Set the y-axis label
-plt.ylabel('Price (in 1000s of dollars)')
-# Set the x-axis label
-plt.xlabel('Size (1000 sqft)')
-plt.legend()
-plt.show()
-
-w = 200                         
-b = 100    
-x_i = 1.2
-cost_1200sqft = w * x_i + b    
-
-print(f"${cost_1200sqft:.0f} thousand dollars")
+    return total_cost
